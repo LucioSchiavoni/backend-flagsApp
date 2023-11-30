@@ -7,7 +7,7 @@ export class CreateResultInput {
 
   @IsNotEmpty({message: 'Campo obligatorio.'})
   @Field()
-  record: string;
+  record: number;
 
   @IsNotEmpty({message: 'Campo obligatorio.'})
   @Field()

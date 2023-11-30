@@ -16,7 +16,7 @@ export class User {
   @Column()
   @Field()
   password: string;
-
+  
   @OneToMany(() => Result, (result) => result.user)
   @Field(() => [Result], {nullable: true})
   result: Result[];

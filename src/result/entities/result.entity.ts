@@ -11,7 +11,7 @@ export class Result {
 
   @Column()
   @Field()
-  record: string 
+  record: number;
 
   @Column()
   @Field()

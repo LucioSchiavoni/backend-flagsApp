@@ -23,11 +23,11 @@ dotenv.config()
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
     }),
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
       url: process.env.URL_DB,
-      ssl: {
+            ssl: {
         rejectUnauthorized: false
       }
     }),
