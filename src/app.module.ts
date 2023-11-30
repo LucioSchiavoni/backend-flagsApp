@@ -14,6 +14,7 @@ import { UsersResolver } from './users/users.resolver';
 import { UsersService } from './users/users.service';
 import { ResultResolver } from './result/result.resolver';
 import { ResultService } from './result/result.service';
+import { AuthModule } from './auth/auth.module';
 dotenv.config()
 
 @Module({
@@ -34,7 +35,7 @@ dotenv.config()
     TypeOrmModule.forFeature([User, Result]),
     
     UsersModule, 
-    ResultModule
+    ResultModule, AuthModule
   ],
   controllers: [AppController],
   providers: [
