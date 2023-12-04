@@ -1,14 +1,15 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, MinLength } from 'class-validator';
 
 @InputType()
 export class CreateUserInput {
 
   @IsNotEmpty({message: 'Campo obligatorio'})
-  @Field()
+  @Field( () => String)
   username: string;
 
   @IsNotEmpty({message: 'Campo obligatorio'})
-  @Field()
+  @MinLength(8, {message: 'La clave debe ser de un minimo de 8 caracteres.'})
+  @Field( () => String)
   password: string;
 }

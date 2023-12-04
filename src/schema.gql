@@ -10,36 +10,34 @@ type Result {
 }
 
 type User {
-  id: Int!
+  id: ID!
   username: String!
-  password: String!
   result: [Result!]
+}
+
+type AuthResponse {
+  token: String!
+  user: User!
 }
 
 type Query {
   users: [User!]!
-  user(id: Int!): User!
   result(id: Int!): Result!
 }
 
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
-  removeUser(id: Int!): User!
+  blockUser(id: ID!): User!
   createResult(createResultInput: CreateResultInput!): Result!
   updateResult(updateResultInput: UpdateResultInput!): Result!
   removeResult(id: Int!): Result!
+  signup(signupInput: SignupInput!): AuthResponse!
+  login(loginInput: LoginUserInput!): AuthResponse!
 }
 
 input CreateUserInput {
   username: String!
   password: String!
-}
-
-input UpdateUserInput {
-  username: String
-  password: String
-  id: Int!
 }
 
 input CreateResultInput {
@@ -51,4 +49,14 @@ input UpdateResultInput {
   record: Float
   categories: String
   id: Int!
+}
+
+input SignupInput {
+  username: String!
+  password: String!
+}
+
+input LoginUserInput {
+  username: String!
+  password: String!
 }

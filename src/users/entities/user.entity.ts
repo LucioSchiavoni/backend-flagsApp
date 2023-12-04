@@ -1,4 +1,4 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { Result } from 'src/result/entities/result.entity';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
@@ -6,15 +6,14 @@ import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 @ObjectType()
 export class User {
   @PrimaryGeneratedColumn()
-  @Field(() => Int)
-  id: number;
+  @Field(()  => ID)
+  id: number; 
 
-  @Column()
-  @Field()
+  @Column( {unique:true})
+  @Field(() => String)
   username: string;
 
   @Column()
-  @Field()
   password: string;
   
   @OneToMany(() => Result, (result) => result.user)

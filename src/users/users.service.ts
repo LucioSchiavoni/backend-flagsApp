@@ -4,6 +4,7 @@ import { UpdateUserInput } from './dto/update-user.input';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UsersService {
@@ -13,23 +14,38 @@ export class UsersService {
 
   
   async create(createUserInput: CreateUserInput): Promise<User>{
-    const newUser = this.userRepository.create(createUserInput);
-    return this.userRepository.save(newUser)
+    try {
+
+      const newUser = this.userRepository.create({
+        ...createUserInput, 
+        password: bcrypt.hashSync(createUserInput.password, 10)
+      });
+      return this.userRepository.save(newUser);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll(): Promise<User[]> {
+    return [];
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(username: string): Promise<User>{
+    try {
+        return this.userRepository.findOneByOrFail({username})
+    } catch (error) {
+      console.log(error)
+      
+    }
   }
 
   update(id: number, updateUserInput: UpdateUserInput) {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  block(id: number): Promise<User> {
+    throw new Error(`Block method not implemented`);
   }
+
+
 }
