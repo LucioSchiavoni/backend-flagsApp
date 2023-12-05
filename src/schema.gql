@@ -23,6 +23,7 @@ type AuthResponse {
 type Query {
   users: [User!]!
   result(id: Int!): Result!
+  revalidate: AuthResponse!
 }
 
 type Mutation {

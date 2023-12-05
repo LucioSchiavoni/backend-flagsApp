@@ -4,7 +4,10 @@ import { UpdateResultInput } from './dto/update-result.input';
 
 @Injectable()
 export class ResultService {
+
+  
   create(createResultInput: CreateResultInput) {
+
     return 'This action adds a new result';
   }
 

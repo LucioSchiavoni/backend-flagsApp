@@ -30,7 +30,7 @@ export class UsersService {
     return [];
   }
 
-  findOne(username: string): Promise<User>{
+  async findOne(username: string): Promise<User>{
     try {
         return this.userRepository.findOneByOrFail({username})
     } catch (error) {
@@ -45,6 +45,15 @@ export class UsersService {
 
   block(id: number): Promise<User> {
     throw new Error(`Block method not implemented`);
+  }
+
+   async findOneById(id: number): Promise<User>{
+    try {
+        return this.userRepository.findOneByOrFail({id})
+    } catch (error) {
+      console.log(error)
+      
+    }
   }
 
 
