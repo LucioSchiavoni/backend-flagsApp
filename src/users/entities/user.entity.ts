@@ -7,7 +7,7 @@ import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 export class User {
   @PrimaryGeneratedColumn()
   @Field(()  => ID)
-  id: number; 
+  id: string; 
 
   @Column( {unique:true})
   @Field(() => String)

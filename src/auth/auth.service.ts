@@ -13,7 +13,7 @@ export class AuthService {
         private readonly jwtService: JwtService,
         ) {}
 
-    private getJwtToken(userId: number) {
+    private getJwtToken(userId: string) {
         return this.jwtService.sign({id: userId})
     }
 
@@ -41,7 +41,7 @@ export class AuthService {
     }
    }
 
-   async validateUser (id: number): Promise<User> {
+   async validateUser (id: string): Promise<User> {
         const user = await this.userService.findOneById(id)
         
         delete user.password;
@@ -54,7 +54,6 @@ export class AuthService {
     revalidateToken( user: User): AuthResponse {
 
         const token = this.getJwtToken(user.id)
-        
         return {
             token, 
             user

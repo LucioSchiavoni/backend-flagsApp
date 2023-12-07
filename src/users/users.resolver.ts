@@ -29,7 +29,7 @@ export class UsersResolver {
   // }
 
   @Mutation(() => User)
-  blockUser(@Args('id', { type: () => ID }) id: number): Promise<User> {
+  blockUser(@Args('id', { type: () => ID }) id: string): Promise<User> {
     return this.usersService.block(id);
   }
 }

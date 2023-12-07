@@ -39,15 +39,15 @@ export class UsersService {
     }
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
+  update(id: string, updateUserInput: UpdateUserInput) {
     return `This action updates a #${id} user`;
   }
 
-  block(id: number): Promise<User> {
+  block(id: string): Promise<User> {
     throw new Error(`Block method not implemented`);
   }
 
-   async findOneById(id: number): Promise<User>{
+   async findOneById(id: string): Promise<User>{
     try {
         return this.userRepository.findOneByOrFail({id})
     } catch (error) {

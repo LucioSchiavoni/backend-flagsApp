@@ -1,15 +1,18 @@
-import { ExecutionContext, InternalServerErrorException, createParamDecorator } from "@nestjs/common";
+import { ExecutionContext, Injectable, InternalServerErrorException, createParamDecorator } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
 
 
-export const CurrentUser = createParamDecorator( 
-    (context: ExecutionContext) => {
+export const CurrentUser = createParamDecorator(
+    (data: unknown, context: ExecutionContext) => {
+        console.log('Contexto:', context);
         const ctx = GqlExecutionContext.create(context);
-        const user = ctx.getContext().req.user;
+        const { req } = ctx.getContext();
+        const user = req ? req.user : undefined;
 
-        if(!user) {
-            console.log('Error del !user que no existe en el current')
+        if (!user) {
+            console.log('Error: No se encontró el usuario en el contexto');
         }
 
         return user;
-}) 
+    }
+);
