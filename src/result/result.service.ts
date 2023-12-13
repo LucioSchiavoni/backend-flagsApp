@@ -1,18 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateResultInput } from './dto/create-result.input';
 import { UpdateResultInput } from './dto/update-result.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Result } from './entities/result.entity';
+import { Repository } from 'typeorm';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class ResultService {
 
+  constructor(
+    @InjectRepository(Result) private resultRepository: Repository<Result>,
+    private readonly userService: UsersService,
+  ){}
   
-  create(createResultInput: CreateResultInput) {
-
-    return 'This action adds a new result';
+  
+  async create(createResultInput: CreateResultInput) {
+    const { userId, ...resultData} = createResultInput;
+    
+    const user = await this.userService.findOneById(userId)
+    if(!user){
+      throw new NotFoundException(`Usuario con ID ${userId} no encontrado.`)
+    }
+    const newResult = this.resultRepository.create({
+      ...resultData,
+      user
+    });
+    return this.resultRepository.save(newResult);
   }
 
-  findAll() {
-    return `This action returns all result`;
+  async findAll(): Promise<Result[]> {
+    return [];
   }
 
   findOne(id: number) {

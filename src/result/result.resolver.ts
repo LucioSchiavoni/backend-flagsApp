@@ -6,7 +6,9 @@ import { UpdateResultInput } from './dto/update-result.input';
 
 @Resolver(() => Result)
 export class ResultResolver {
-  constructor(private readonly resultService: ResultService) {}
+  constructor(
+    private readonly resultService: ResultService
+    ) {}
 
   @Mutation(() => Result)
   createResult(@Args('createResultInput') createResultInput: CreateResultInput) {

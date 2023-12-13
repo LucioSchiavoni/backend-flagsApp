@@ -8,6 +8,7 @@ export class User {
   @PrimaryGeneratedColumn()
   @Field(()  => ID)
   id: string; 
+  
 
   @Column( {unique:true})
   @Field(() => String)
